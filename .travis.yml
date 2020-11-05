@@ -8,24 +8,6 @@ matrix:
   fast_finish: true
   include:  
 
-    - name: "deploy codecov checkstyle maven(single pom) on focal arm64"
-      dist: focal
-      arch: amd64         
-      language: java
-      jdk:
-      - openjdk8
-      cache:
-        directories:
-        - ~/.m2
-      before_install:
-        - java -version
-      script:
-        - cd maven-checkstyle
-        - mvn checkstyle:checkstyle
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
-        - deactivate
-        
     - name: "deploy codecov checkstyle maven(single pom) on bionic arm64"
       dist: bionic
       arch: amd64         
