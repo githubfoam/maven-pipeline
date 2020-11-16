@@ -43,12 +43,38 @@ matrix:
     #     - bash <(curl -s https://codecov.io/bash)
     #     - deactivate
 
-    - name: "deploy maven checkstyle on bionic arm64"
+# JDKs installed for Bionic
+# https://docs.travis-ci.com/user/reference/bionic/#jvm-clojure-groovy-java-scala-support
+    - name: "deploy checkstyle codecov maven(single pom)  on bionic arm64"
       dist: bionic
       arch: amd64         
       language: java
       jdk:
       - openjdk8
+      - openjdk10
+      - openjdk11 #default 
+      cache:
+        directories:
+        - ~/.m2
+      before_install:
+        - java -version
+      script:
+        - cd maven-checkstyle
+        - mvn checkstyle:checkstyle
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+        - deactivate
+
+# JDKs installed for Bionic
+# https://docs.travis-ci.com/user/reference/bionic/#jvm-clojure-groovy-java-scala-support
+    - name: "deploy checkstyle codecov maven(single pom)  on xenial arm64"
+      dist: xenial
+      arch: amd64         
+      language: java
+      jdk:
+      - openjdk8
+      - openjdk10
+      - openjdk11 #default 
       cache:
         directories:
         - ~/.m2
